@@ -1,0 +1,42 @@
+﻿@model List<Regra.Models.PessoaModel>
+
+@{
+   ViewData["Title"] = "Lista de Pessoas";
+}
+
+
+<div class="text-center">
+   <h1 class="display-5 m-3">Listagem</h1>
+   <hr />
+</div>
+
+<small class="text-muted m-3 d-flex justify-content-center">~Clique sobre os valores da tabela para ir para tela de edição~</small>
+
+<table class="table table-hover">
+   <thead class="thead-dark">
+      <tr>
+         <th scope="col">Nome</th>
+         <th scope="col">CPF</th>
+         <th scope="col">Telefone</th>
+         <th scope="col" class="text-center">Qtd. Endereço</th>
+         <th scope="col">Apagar</th>
+      </tr>
+   </thead>
+   <tbody>
+      @foreach (var item in Model)
+      {
+         <tr>
+            @Html.HiddenFor(modelItem => item.PessoaId, new { id = "IdPessoa"})
+            <td><a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.nome) </a></td>
+            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.cpf)</a></td>
+            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.telefone)</a></td>
+            <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
+            <td><form asp-controller="Pessoas" asp-action="Apagar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
+         </tr>
+      }
+   </tbody>
+</table>
+
+@section scripts {
+   <script src="js/home/home.js"></script>
+}

@@ -1,0 +1,152 @@
+﻿@model Regra.Models.PessoaModel
+
+@{
+   ViewData["Title"] = "Editar";
+   IList<Regra.Models.EnderecoModel> enderecos = ViewData["EnderecoModel"] as IList<Regra.Models.EnderecoModel>;
+   Regra.Models.EnderecoModel enderecoModel = ViewData["EnderecoModel"] as Regra.Models.EnderecoModel;
+}
+
+<h4 class="display-5 text-center">Atualizar @Model.nome</h4>
+<hr />
+<div class="row d-flex justify-content-center">
+   <div class="col-md-4 ">
+      <form asp-action="Editar">
+         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         <input asp-for="PessoaId" type="hidden" />
+         <div class="form-group">
+            <label asp-for="nome" class="control-label">Nome</label>
+            <input asp-for="nome" class="form-control" />
+            <span asp-validation-for="nome" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="cpf" class="control-label">CPF</label>
+            <input asp-for="cpf" id="CPF" type="text" pattern="\d*" maxlength="14" class="form-control" />
+            <span asp-validation-for="cpf" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="telefone" class="control-label">Telefone</label>
+            <input asp-for="telefone" class="form-control" />
+            <span asp-validation-for="telefone" class="text-danger"></span>
+         </div>
+         <div class="form-group m-3">
+            <input type="submit" value="Atualizar" class="btn btn-success btn-sm" />
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">Voltar</a>
+         </div>
+      </form>
+   </div>
+
+
+   <div class="d-flex justify-content-center">
+      <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+         + Endereço
+      </button>
+   </div>
+
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Novo Endereço</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <form asp-action="CreateEndereco">
+                  <div class="form-group">
+                     <input asp-for="@enderecoModel.pessoaId" value="@Model.PessoaId" type="hidden" />
+                     <label asp-for="@enderecoModel.cep" class="control-label">CEP</label>
+                     <input asp-for="@enderecoModel.cep" type="text" pattern="\d*" maxlength="4" class="form-control" />
+                     <span asp-validation-for="@enderecoModel.cep" class="text-danger"></span>
+                  </div>
+                  <div class="form-group mt-1">
+                     <label asp-for="@enderecoModel.endereco" class="control-label">Endereço</label>
+                     <input asp-for="@enderecoModel.endereco" class="form-control" />
+                     <span asp-validation-for="@enderecoModel.endereco" class="text-danger"></span>
+                  </div>
+                  <div class="row mt-1">
+                     <div class="form-group col-md-7">
+                        <label asp-for="@enderecoModel.cidade" class="control-label">Cidade</label>
+                        <input asp-for="@enderecoModel.cidade" class="form-control" />
+                        <span asp-validation-for="@enderecoModel.cidade" class="text-danger"></span>
+                     </div>
+                     <div class="form-group col-md-5">
+                        <label asp-for="@enderecoModel.numeroCasa" class="control-label">Número</label>
+                        <input asp-for="@enderecoModel.numeroCasa" class="form-control" />
+                        <span asp-validation-for="@enderecoModel.numeroCasa" class="text-danger"></span>
+                     </div>
+                  </div>
+                  
+                  <div class="form-group">
+                     <label asp-for="@enderecoModel.estado" class="control-label">Estado</label>
+                     <select asp-for="@enderecoModel.estado" class="form-control">
+                        <option value="" selected disabled>Selecione um estado</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                     </select>
+                     <span asp-validation-for="@enderecoModel.estado" class="text-danger"></span>
+                  </div>
+
+                  <div class="form-group m-3">
+                     <input type="submit" class="btn btn-success btn-sm" />
+                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <small class="text-muted m-3 d-flex justify-content-center">~Clique sobre os valores da tabela para ir para tela de edição~</small>
+
+   <div class=" d-flex justify-content-center">
+      <table class="table table-hover">
+         <thead class="thead-dark">
+            <tr>
+               <th scope="col">CEP</th>
+               <th scope="col">Endereço</th>
+               <th scope="col">Número</th>
+               <th scope="col">Cidade</th>
+               <th scope="col">Estado</th>
+               <th scope="col">Apagar</th>
+            </tr>
+         </thead>
+         @foreach (var item in enderecos)
+         {
+            <tbody>
+               <tr>
+                  <td><a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.cep)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.endereco)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.numeroCasa)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.cidade)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.estado)</a></td>
+                  <td><form asp-controller="Pessoas" asp-action="ApagarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
+               </tr>
+            </tbody>
+         }
+      </table>
+   </div>
+</div>

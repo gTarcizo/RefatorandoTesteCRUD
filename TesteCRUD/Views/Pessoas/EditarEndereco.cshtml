@@ -1,0 +1,94 @@
+﻿@model Regra.Models.EnderecoModel
+
+@{
+   ViewData["Title"] = "Editar Endereco";
+}
+
+<h4 class="display-5 text-center">Atualizar Endereco</h4>
+<hr />
+<div class="row d-flex justify-content-center">
+   <div class="col-md-4 ">
+      <form asp-action="EditarEndereco">
+         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         <input type="hidden" asp-for="enderecoId" class="form-control" />
+         <div class="form-group">
+            <label asp-for="cep" class="control-label">CEP</label>
+            <input asp-for="cep" class="form-control" id="endereco_cep" />
+            <span asp-validation-for="cep" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="endereco" class="control-label">Endereço</label>
+            <input asp-for="endereco" class="form-control" id="endereco_endereco" />
+            <span asp-validation-for="endereco" class="text-danger"></span>
+         </div>
+         <div class="row">
+            <div class="form-group  col-md-7">
+               <label asp-for="cidade" class="control-label">Cidade</label>
+               <input asp-for="cidade" class="form-control" id="endereco_cidade" />
+               <span asp-validation-for="cidade" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5">
+               <label asp-for="numeroCasa" class="control-label">Número</label>
+               <input asp-for="numeroCasa" class="form-control" />
+               <span asp-validation-for="numeroCasa" class="text-danger"></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label asp-for="estado" class="control-label">Estado</label>
+            <select asp-for="estado" class="form-control" id="endereco_estado">
+               <option value="" selected disabled>Selecione um estado</option>
+               <option value="AC">Acre</option>
+               <option value="AL">Alagoas</option>
+               <option value="AP">Amapá</option>
+               <option value="AM">Amazonas</option>
+               <option value="BA">Bahia</option>
+               <option value="CE">Ceará</option>
+               <option value="DF">Distrito Federal</option>
+               <option value="ES">Espírito Santo</option>
+               <option value="GO">Goiás</option>
+               <option value="MA">Maranhão</option>
+               <option value="MT">Mato Grosso</option>
+               <option value="MS">Mato Grosso do Sul</option>
+               <option value="MG">Minas Gerais</option>
+               <option value="PA">Pará</option>
+               <option value="PB">Paraíba</option>
+               <option value="PR">Paraná</option>
+               <option value="PE">Pernambuco</option>
+               <option value="PI">Piauí</option>
+               <option value="RJ">Rio de Janeiro</option>
+               <option value="RN">Rio Grande do Norte</option>
+               <option value="RS">Rio Grande do Sul</option>
+               <option value="RO">Rondônia</option>
+               <option value="RR">Roraima</option>
+               <option value="SC">Santa Catarina</option>
+               <option value="SP">São Paulo</option>
+               <option value="SE">Sergipe</option>
+               <option value="TO">Tocantins</option>
+            </select>
+            <span asp-validation-for="estado" class="text-danger"></span>
+         </div>
+         <input asp-for="pessoaId" type="hidden" class="form-control" />
+         <div class="form-group m-3">
+            <input type="submit" value="Atualizar" class="btn btn-success btn-sm" />
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">Voltar</a>
+         </div>
+      </form>
+   </div>
+</div>
+
+@section Scripts {
+   @{
+      await Html.RenderPartialAsync("_ValidationScriptsPartial");
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
