@@ -3,6 +3,13 @@ const campoCPF = document.getElementById("CPF");
 
 
 if (campoCep != null) {
+   campoCep.addEventListener("keypress", (event) => {
+      let tamanhoCampoCep = campoCep.length;
+      
+      if (tamanhoCampoCep === 4) campoCep.value += '-';
+   })
+
+
    campoCep.addEventListener("change", (event) => {
       onchange = (event) => {
          PreencheEndereco();
@@ -10,17 +17,32 @@ if (campoCep != null) {
    })
 }
 
+if (campoCPF != null) {
+   campoCPF.addEventListener("keypress", (event) => {
+      let tamanhoCampoCPF = campoCPF.value.length;
+      if (tamanhoCampoCPF === 3 || tamanhoCampoCPF === 7) campoCPF.value += '.';
+      if (tamanhoCampoCPF === 11) campoCPF.value += '-';
+   })
+
+   campoCPF.addEventListener("change", (event) => {
+      onchange = (event) => {
+         TestaCPF();
+      }
+   })
+}
+
 
 const PreencheEndereco = async () => {
-   var validacep = /^[0-9]{8}$/;
+   let validaCep = /^[0-9]{8}$/;
    if (campoCep.value.includes("-")) campoCep.value = campoCep.value.replace("-", "")
-   if (validacep.test(campoCep.value) && campoCep.value.length == 8) {
+   if (validaCep.test(campoCep.value) && campoCep.value.length == 8) {
       const url = `https://viacep.com.br/ws/${campoCep.value}/json/`;
       const dadosFetch = await fetch(url);
       const dados = await dadosFetch.json();
-      if (!dados.hasOwnProperty('erro')) return PreencherCamposEndereco(dados);
+      if (dados.hasOwnProperty('erro')) return LimpaCamposCEP();
+      return PreencherCamposEndereco(dados);
    }
-   LimpaCamposCEP()
+   
 }
 
 const PreencherCamposEndereco = dado => {
@@ -36,26 +58,25 @@ const LimpaCamposCEP = () => {
    document.getElementById('enderecoModel_cidade').value = '';
    document.getElementById('enderecoModel_estado').value = '';
 }
+
 const LimpaCamposCPF = () => {
    alert('CPF Inválido!!')
    campoCPF.value = '';
 }
 
 
-campoCPF.addEventListener("change", (event) => {
-   onchange = (event) => {
-      TestaCPF();
-   }
-})
-
-const TestaCPF = () => {
-   var validacpf = /^[0-9]{11}$/;
-   var Soma;
-   var Resto;
-   Soma = 0;
+const LimpaCaracteresEspeciaisCPF = () =>{
    if (campoCPF.value.includes(".")) campoCPF.value = campoCPF.value.replace(/\./g, "");
    if (campoCPF.value.includes("-")) campoCPF.value = campoCPF.value.replace("-", "");
    if (campoCPF.value.includes(" ")) campoCPF.value = campoCPF.value.replace(/\s/g, "");
+}
+
+const TestaCPF = () => {
+   let validacpf = /^[0-9]{11}$/;
+   let Soma;
+   let Resto;
+   Soma = 0;
+   LimpaCaracteresEspeciaisCPF();
    if (!validacpf.test(campoCPF.value) || campoCPF.value == '00000000000') return LimpaCamposCPF();
 
    for (i = 1; i <= 9; i++) Soma = Soma + parseInt(campoCPF.value.substring(i - 1, i)) * (11 - i);

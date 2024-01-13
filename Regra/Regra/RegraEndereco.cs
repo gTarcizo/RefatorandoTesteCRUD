@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Regra.Interfaces;
 using Regra.Models;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,12 @@ namespace Regra.Regra
    public class RegraEndereco
    {
       private readonly string _connection;
-      public RegraEndereco(IConfiguration configuration)
+      private readonly IEnderecoRepositorio _enderecoRepositorio;
+
+      public RegraEndereco(IConfiguration configuration, IEnderecoRepositorio enderecoRepositorio)
       {
          _connection = configuration.GetConnectionString("DefaultConnection")??string.Empty;
+         _enderecoRepositorio = enderecoRepositorio;
       }
 
       public async Task CreateEndereco(EnderecoModel enderecoModel)
@@ -62,6 +66,20 @@ namespace Regra.Regra
             string query = "DELETE FROM enderecos WHERE enderecoId = @enderecoId ";
             return await con.ExecuteAsync(query, new { enderecoId });
          }
+      }
+
+      public async Task<List<EnderecoModel>> BuscarEnderecoPessoaPorId(int pessoaId)
+      {
+         var listaEndereco = await _enderecoRepositorio.BuscarEnderecoPessoaPorId(pessoaId);
+         var listaEnderecoModel = new List<EnderecoModel>();
+
+         foreach (var endereco in listaEndereco)
+         {
+            var modelo = new EnderecoModel();
+            modelo.EntidadeParaModel(endereco);
+            listaEnderecoModel.Add(modelo);
+         }
+         return listaEnderecoModel;
       }
    }
 }

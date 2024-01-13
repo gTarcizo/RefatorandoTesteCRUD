@@ -20,7 +20,7 @@
          </div>
          <div class="form-group">
             <label asp-for="cpf" class="control-label">CPF</label>
-            <input asp-for="cpf" id="CPF" type="text" pattern="\d*" maxlength="14" class="form-control" />
+            <input asp-for="cpf" id="CPF" type="text" maxlength="14" class="form-control" />
             <span asp-validation-for="cpf" class="text-danger"></span>
          </div>
          <div class="form-group">
@@ -54,7 +54,7 @@
                   <div class="form-group">
                      <input asp-for="@enderecoModel.pessoaId" value="@Model.PessoaId" type="hidden" />
                      <label asp-for="@enderecoModel.cep" class="control-label">CEP</label>
-                     <input asp-for="@enderecoModel.cep" type="text" pattern="\d*" maxlength="4" class="form-control" />
+                     <input asp-for="@enderecoModel.cep" type="text" maxlength="14" class="form-control" />
                      <span asp-validation-for="@enderecoModel.cep" class="text-danger"></span>
                   </div>
                   <div class="form-group mt-1">

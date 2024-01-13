@@ -1,12 +1,16 @@
 
 using Regra.Regra;
+using Regra.Interfaces;
+using ScopedInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var services = builder.Services;
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<RegraPessoa>();
 builder.Services.AddScoped<RegraEndereco>();
+
+Scopedinjection.ConfigurarScoped(services);
 
 var app = builder.Build();
 

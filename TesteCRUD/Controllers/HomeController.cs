@@ -25,8 +25,7 @@ namespace TesteCRUD.Controllers
       [HttpGet]
       public async Task<IActionResult> Index()
       {
-            List<PessoaModel> listaPessoas = new List<PessoaModel>();
-            listaPessoas = await _regraPessoa.CarregarListaDePessoas();
+            var listaPessoas = await _regraPessoa.CarregarListaDePessoas();
             return View(listaPessoas);
       }
    }

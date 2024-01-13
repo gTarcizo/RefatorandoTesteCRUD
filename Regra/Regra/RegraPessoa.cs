@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Regra.Entidades;
+using Regra.Interfaces;
 using Regra.Models;
 using System;
 using System.Collections.Generic;
@@ -14,35 +16,32 @@ namespace Regra.Regra
    public class RegraPessoa
    {
       private readonly string _connection;
-      public RegraPessoa(IConfiguration configuration)
+      private readonly RegraEndereco _regraEndereco;
+      private readonly IPessoaRepositorio _pessoaRepositorio;
+      public RegraPessoa(IConfiguration configuration, IPessoaRepositorio pessoaRepositorio, RegraEndereco regraEndereco)
       {
          _connection = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+         _pessoaRepositorio = pessoaRepositorio;
+         _regraEndereco = regraEndereco;
       }
 
       public async Task<List<PessoaModel>> CarregarListaDePessoas()
       {
-         using (SqlConnection co = new SqlConnection(_connection))
-         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM Pessoas");
-            var listaPessoas = await co.QueryAsync<PessoaModel>(sb.ToString());
-            foreach (var item in listaPessoas)
-            {
-               item.ListaEndereco = await BuscarEnderecoPessoa(item.PessoaId);
-            }
-            return listaPessoas.ToList();
-         }
-      }
+         var listaPessoa = await _pessoaRepositorio.ListarPessoas();
+         var listaPessoaModel = new List<PessoaModel>();
 
-      public async Task<List<EnderecoModel>> BuscarEnderecoPessoa(int pessoaId)
-      {
-         using (var co = new SqlConnection(_connection))
+         foreach (var pessoa in listaPessoa)
          {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM enderecos WHERE pessoaId = @pessoaId ");
-            var listaEndereco = await co.QueryAsync<EnderecoModel>(sb.ToString(), new { pessoaId });
-            return listaEndereco.ToList();
+            var modelo = new PessoaModel();
+            modelo.EntidadeParaModel(pessoa);
+            listaPessoaModel.Add(modelo);
          }
+
+         foreach (var pessoaModel in listaPessoaModel)
+         {
+            pessoaModel.ListaEndereco = await _regraEndereco.BuscarEnderecoPessoaPorId(pessoaModel.PessoaId);
+         }
+         return listaPessoaModel.ToList();
       }
 
       public async Task<int> CriarPessoa(PessoaModel pessoa)
