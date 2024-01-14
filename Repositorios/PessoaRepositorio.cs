@@ -20,7 +20,7 @@ namespace Repositorios
          using (SqlConnection co = new SqlConnection(_connection))
          {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM Pessoas");
+            sb.Append("SELECT * FROM Pessoa");
             return await co.QueryAsync<Pessoa>(sb.ToString());
          }
       }

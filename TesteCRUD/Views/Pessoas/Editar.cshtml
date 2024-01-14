@@ -6,27 +6,27 @@
    Regra.Models.EnderecoModel enderecoModel = ViewData["EnderecoModel"] as Regra.Models.EnderecoModel;
 }
 
-<h4 class="display-5 text-center">Atualizar @Model.nome</h4>
+<h4 class="display-5 text-center">Atualizar @Model.Nome</h4>
 <hr />
 <div class="row d-flex justify-content-center">
    <div class="col-md-4 ">
       <form asp-action="Editar">
          <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-         <input asp-for="PessoaId" type="hidden" />
+         <input asp-for="IdPessoa" type="hidden" />
          <div class="form-group">
-            <label asp-for="nome" class="control-label">Nome</label>
-            <input asp-for="nome" class="form-control" />
-            <span asp-validation-for="nome" class="text-danger"></span>
+            <label asp-for="Nome" class="control-label">Nome</label>
+            <input asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
          </div>
          <div class="form-group">
-            <label asp-for="cpf" class="control-label">CPF</label>
-            <input asp-for="cpf" id="CPF" type="text" maxlength="14" class="form-control" />
-            <span asp-validation-for="cpf" class="text-danger"></span>
+            <label asp-for="CPF" class="control-label">CPF</label>
+            <input asp-for="CPF" id="CPF" type="text" maxlength="14" class="form-control" />
+            <span asp-validation-for="CPF" class="text-danger"></span>
          </div>
          <div class="form-group">
-            <label asp-for="telefone" class="control-label">Telefone</label>
-            <input asp-for="telefone" class="form-control" />
-            <span asp-validation-for="telefone" class="text-danger"></span>
+            <label asp-for="Telefone" class="control-label">Telefone</label>
+            <input asp-for="Telefone" class="form-control" />
+            <span asp-validation-for="Telefone" class="text-danger"></span>
          </div>
          <div class="form-group m-3">
             <input type="submit" value="Atualizar" class="btn btn-success btn-sm" />
@@ -52,32 +52,32 @@
             <div class="modal-body">
                <form asp-action="CreateEndereco">
                   <div class="form-group">
-                     <input asp-for="@enderecoModel.pessoaId" value="@Model.PessoaId" type="hidden" />
-                     <label asp-for="@enderecoModel.cep" class="control-label">CEP</label>
-                     <input asp-for="@enderecoModel.cep" type="text" maxlength="14" class="form-control" />
-                     <span asp-validation-for="@enderecoModel.cep" class="text-danger"></span>
+                     <input asp-for="@enderecoModel.IdPessoa" value="@Model.IdPessoa" type="hidden" />
+                     <label asp-for="@enderecoModel.CEP" class="control-label">CEP</label>
+                     <input asp-for="@enderecoModel.CEP" type="text" id="CEP" maxlength="14" class="form-control" />
+                     <span asp-validation-for="@enderecoModel.CEP" class="text-danger"></span>
                   </div>
                   <div class="form-group mt-1">
-                     <label asp-for="@enderecoModel.endereco" class="control-label">Endereço</label>
-                     <input asp-for="@enderecoModel.endereco" class="form-control" />
-                     <span asp-validation-for="@enderecoModel.endereco" class="text-danger"></span>
+                     <label asp-for="@enderecoModel.NomeEndereco" class="control-label">Endereço</label>
+                     <input asp-for="@enderecoModel.NomeEndereco" class="form-control" />
+                     <span asp-validation-for="@enderecoModel.NomeEndereco" class="text-danger"></span>
                   </div>
                   <div class="row mt-1">
                      <div class="form-group col-md-7">
-                        <label asp-for="@enderecoModel.cidade" class="control-label">Cidade</label>
-                        <input asp-for="@enderecoModel.cidade" class="form-control" />
-                        <span asp-validation-for="@enderecoModel.cidade" class="text-danger"></span>
+                        <label asp-for="@enderecoModel.Cidade" class="control-label">Cidade</label>
+                        <input asp-for="@enderecoModel.Cidade" class="form-control" />
+                        <span asp-validation-for="@enderecoModel.Cidade" class="text-danger"></span>
                      </div>
                      <div class="form-group col-md-5">
-                        <label asp-for="@enderecoModel.numeroCasa" class="control-label">Número</label>
-                        <input asp-for="@enderecoModel.numeroCasa" class="form-control" />
-                        <span asp-validation-for="@enderecoModel.numeroCasa" class="text-danger"></span>
+                        <label asp-for="@enderecoModel.NumeroCasa" class="control-label">Número</label>
+                        <input asp-for="@enderecoModel.NumeroCasa" class="form-control" />
+                        <span asp-validation-for="@enderecoModel.NumeroCasa" class="text-danger"></span>
                      </div>
                   </div>
                   
                   <div class="form-group">
-                     <label asp-for="@enderecoModel.estado" class="control-label">Estado</label>
-                     <select asp-for="@enderecoModel.estado" class="form-control">
+                     <label asp-for="@enderecoModel.Estado" class="control-label">Estado</label>
+                     <select asp-for="@enderecoModel.Estado" class="form-control">
                         <option value="" selected disabled>Selecione um estado</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -107,7 +107,7 @@
                         <option value="SE">Sergipe</option>
                         <option value="TO">Tocantins</option>
                      </select>
-                     <span asp-validation-for="@enderecoModel.estado" class="text-danger"></span>
+                     <span asp-validation-for="@enderecoModel.Estado" class="text-danger"></span>
                   </div>
 
                   <div class="form-group m-3">
@@ -138,12 +138,12 @@
          {
             <tbody>
                <tr>
-                  <td><a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.cep)</a></td>
-                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.endereco)</a></td>
-                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.numeroCasa)</a></td>
-                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.cidade)</a></td>
-                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.estado)</a></td>
-                  <td><form asp-controller="Pessoas" asp-action="ApagarEndereco" asp-route-enderecoId="@item.enderecoId" class="text-dark font-weight-light text-decoration-none"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
+                  <td><a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.CEP)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.NomeEndereco)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.NumeroCasa)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Cidade)</a></td>
+                  <td> <a asp-controller="Pessoas" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Estado)</a></td>
+                  <td><form asp-controller="Pessoas" asp-action="ApagarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
                </tr>
             </tbody>
          }

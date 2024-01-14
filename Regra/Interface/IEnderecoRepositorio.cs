@@ -10,6 +10,6 @@ namespace Regra.Interfaces
 {
    public interface IEnderecoRepositorio
    {
-      Task<List<Endereco>> BuscarEnderecoPessoaPorId(int pessoaId);
+      Task<List<Endereco>> BuscarEnderecoPessoaPorId(int idPessoa);
    }
 }

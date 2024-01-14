@@ -11,15 +11,21 @@ namespace Regra.Models
          ListaEndereco = new List<EnderecoModel>();
          ListaPessoa = new List<PessoaModel>();
       }
-      public int PessoaId { get; set; }
+      public int IdPessoa { get; set; }
+
       [Required(ErrorMessage ="Preencha o campo Nome")]
-      public string nome { get; set; }
+      public string Nome { get; set; }
+
       [Required(ErrorMessage = "Preencha o campo CPF")]
-      public string cpf { get; set; }
+      public string CPF { get; set; }
+
       [Required(ErrorMessage = "Preencha o campo Telefone")]
-      public string telefone { get; set; }
+      public string Telefone { get; set; }
+
       public List<EnderecoModel> ListaEndereco { get; set; }
+
       public List<PessoaModel> ListaPessoa { get; set; }
+
       public int QuantidadeEndereco
       {
          get
@@ -29,10 +35,10 @@ namespace Regra.Models
       }
       public void EntidadeParaModel(Pessoa pessoa)
       {
-         PessoaId = pessoa.PessoaId;
-         nome = pessoa.nome;
-         cpf = pessoa.cpf;
-         telefone = pessoa.telefone;
+         IdPessoa = pessoa.IdPessoa;
+         Nome = pessoa.Nome;
+         CPF = pessoa.CPF;
+         Telefone = pessoa.Telefone;
       }
    }
 }

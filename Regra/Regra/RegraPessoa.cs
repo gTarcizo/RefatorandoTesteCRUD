@@ -39,36 +39,36 @@ namespace Regra.Regra
 
          foreach (var pessoaModel in listaPessoaModel)
          {
-            pessoaModel.ListaEndereco = await _regraEndereco.BuscarEnderecoPessoaPorId(pessoaModel.PessoaId);
+            pessoaModel.ListaEndereco = await _regraEndereco.BuscarEnderecoPessoaPorId(pessoaModel.IdPessoa);
          }
          return listaPessoaModel.ToList();
       }
 
-      public async Task<int> CriarPessoa(PessoaModel pessoa)
+      public async Task<int> CriarPessoa(PessoaModel pessoaModel)
       {
          using (SqlConnection con = new SqlConnection(_connection))
          {
-            string query = "INSERT INTO pessoas (nome, cpf, telefone) VALUES( @nome, @cpf, @telefone); SELECT CAST(scope_identity() AS INT);";
-            return await con.QueryFirstAsync<int>(query, pessoa);
+            string query = "INSERT INTO Pessoa (Nome, CPF, Telefone) VALUES( @Nome, @CPF, @Telefone); SELECT CAST(scope_identity() AS INT);";
+            return await con.QueryFirstAsync<int>(query, pessoaModel);
          }
       }
 
-      public async Task<PessoaModel> CarregarEditar(int pessoaId)
+      public async Task<PessoaModel> CarregarEditar(int idPessoa)
       {
          try
          {
             PessoaModel pessoas = new PessoaModel();
-            if (pessoaId > 0)
+            if (idPessoa > 0)
             {
                using (SqlConnection con = new SqlConnection(_connection))
                {
 
-                  string queryPessoa = "SELECT * FROM pessoas WHERE pessoaId = @pessoaId";
-                  pessoas = await con.QueryFirstOrDefaultAsync<PessoaModel>(queryPessoa, new { pessoaId = pessoaId }) ?? new PessoaModel();
+                  string queryPessoa = "SELECT * FROM Pessoa WHERE IdPessoa = @idPessoa";
+                  pessoas = await con.QueryFirstOrDefaultAsync<PessoaModel>(queryPessoa, new { idPessoa }) ?? new PessoaModel();
 
                   IList<EnderecoModel> listaEnderecos;
-                  string queryEndereco = "SELECT * FROM enderecos WHERE pessoaId = @pessoaId";
-                  var enderecos = await con.QueryAsync<EnderecoModel>(queryEndereco, new { pessoaId = pessoaId });
+                  string queryEndereco = "SELECT * FROM Endereco WHERE IdPessoa = @idPessoa";
+                  var enderecos = await con.QueryAsync<EnderecoModel>(queryEndereco, new { idPessoa });
                   listaEnderecos = enderecos.ToList();
                   if (listaEnderecos.Count > 0) pessoas.ListaEndereco = listaEnderecos.ToList();
                }
@@ -78,12 +78,12 @@ namespace Regra.Regra
          catch (Exception) { throw; }
       }
 
-      public async Task<int> EditarPessoa(PessoaModel pessoas)
+      public async Task<int> EditarPessoa(PessoaModel pessoaModel)
       {
          using (SqlConnection con = new SqlConnection(_connection))
          {
-            string atualizarQuery = "UPDATE pessoas SET nome=@nome, cpf=@cpf, telefone=@telefone WHERE pessoaId=@pessoaId";
-            return await con.ExecuteAsync(atualizarQuery, pessoas);
+            string atualizarQuery = "UPDATE Pessoa SET Nome = @Nome, CPF = @CPF, Telefone = @Telefone WHERE IdPessoa = @IdPessoa";
+            return await con.ExecuteAsync(atualizarQuery, pessoaModel);
          }
       }
 
@@ -92,8 +92,8 @@ namespace Regra.Regra
          using (SqlConnection con = new SqlConnection(_connection))
          {
             StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE FROM enderecos WHERE pessoaId = @idPessoa ");
-            sb.Append("DELETE FROM pessoas WHERE pessoaId = @idPessoa ");
+            sb.Append("DELETE FROM Endereco WHERE IdPessoa = @idPessoa ");
+            sb.Append("DELETE FROM Pessoa WHERE IdPessoa = @idPessoa ");
             return await con.ExecuteAsync(sb.ToString(), new { idPessoa });
          }
       }
@@ -103,10 +103,10 @@ namespace Regra.Regra
          using (SqlConnection con = new SqlConnection(_connection))
          {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT e.enderecoId, p.* FROM pessoas p ");
-            sb.Append("INNER JOIN enderecos e ON p.pessoaId = e.pessoaId "); 
-            sb.Append("WHERE e.enderecoId = @enderecoId "); 
-            var pessoaModel = await con.QueryFirstOrDefaultAsync<PessoaModel>(sb.ToString(), new { enderecoId =idEndereco });
+            sb.Append("SELECT e.IdEndereco, p.* FROM Pessoa p ");
+            sb.Append("INNER JOIN Endereco e ON p.IdPessoa = e.IdPessoa "); 
+            sb.Append("WHERE e.IdEndereco = @idEndereco "); 
+            var pessoaModel = await con.QueryFirstOrDefaultAsync<PessoaModel>(sb.ToString(), new { idEndereco });
             if (pessoaModel == null) return new PessoaModel();
             return pessoaModel;
          }

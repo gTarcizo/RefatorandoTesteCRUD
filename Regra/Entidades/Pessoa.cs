@@ -5,9 +5,9 @@ namespace Regra.Entidades
 {
    public class Pessoa
    {
-      public int PessoaId { get; set; }
-      public string nome { get; set; }
-      public string cpf { get; set; }
-      public string telefone { get; set; }
+      public int IdPessoa { get; set; }
+      public string Nome { get; set; }
+      public string CPF { get; set; }
+      public string Telefone { get; set; }
    }
 }

@@ -1,4 +1,4 @@
-﻿const campoCep = document.getElementById("enderecoModel_cep");
+﻿const campoCep = document.getElementById("CEP");
 const campoCPF = document.getElementById("CPF");
 
 
@@ -47,16 +47,16 @@ const PreencheEndereco = async () => {
 
 const PreencherCamposEndereco = dado => {
    if (!campoCep.value.includes("-")) campoCep.value = `${campoCep.value.slice(0, 5)}-${campoCep.value.slice(5)}`
-   document.getElementById('enderecoModel_endereco').value = `${dado.logradouro} - ${dado.bairro}`;
-   document.getElementById('enderecoModel_cidade').value = (dado.localidade);
-   document.getElementById('enderecoModel_estado').value = (dado.uf);
+   document.getElementById('enderecoModel_NomeEndereco').value = `${dado.logradouro} - ${dado.bairro}`;
+   document.getElementById('enderecoModel_Cidade').value = (dado.localidade);
+   document.getElementById('enderecoModel_Estado').value = (dado.uf);
 }
 
 const LimpaCamposCEP = () => {
    window.alert('CEP Inválido!');
-   document.getElementById('enderecoModel_endereco').value = '';
-   document.getElementById('enderecoModel_cidade').value = '';
-   document.getElementById('enderecoModel_estado').value = '';
+   document.getElementById('enderecoModel_NomeEndereco').value = '';
+   document.getElementById('enderecoModel_Cidade').value = '';
+   document.getElementById('enderecoModel_Estado').value = '';
 }
 
 const LimpaCamposCPF = () => {

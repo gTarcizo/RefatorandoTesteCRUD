@@ -4,12 +4,12 @@ namespace Regra.Entidades
 {
    public class Endereco
    {
-      public int enderecoId { get; set; }
-      public string endereco { get; set; }
-      public string cep { get; set; }
-      public string estado { get; set; }
-      public string cidade { get; set; }
-      public string numeroCasa { get; set; }
-      public int pessoaId { get; set; }
+      public int IdEndereco { get; set; }
+      public string NomeEndereco { get; set; }
+      public string CEP { get; set; }
+      public string Cidade { get; set; }
+      public string Estado { get; set; }
+      public string NumeroCasa { get; set; }
+      public int IdPessoa { get; set; }
    }
 }

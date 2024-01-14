@@ -15,13 +15,13 @@ namespace Repositorios
       {
          _connection = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
       }
-      public async Task<List<Endereco>> BuscarEnderecoPessoaPorId(int pessoaId)
+      public async Task<List<Endereco>> BuscarEnderecoPessoaPorId(int idPessoa)
       {
          using (var co = new SqlConnection(_connection))
          {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * FROM enderecos WHERE pessoaId = @pessoaId ");
-            var listaEndereco = await co.QueryAsync<Endereco>(sb.ToString(), new { pessoaId });
+            sb.Append("SELECT * FROM Endereco WHERE IdPessoa = @idPessoa ");
+            var listaEndereco = await co.QueryAsync<Endereco>(sb.ToString(), new { idPessoa });
             return listaEndereco.ToList();
          }
       }

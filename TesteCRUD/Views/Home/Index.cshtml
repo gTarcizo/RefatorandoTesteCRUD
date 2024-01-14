@@ -26,12 +26,12 @@
       @foreach (var item in Model)
       {
          <tr>
-            @Html.HiddenFor(modelItem => item.PessoaId, new { id = "IdPessoa"})
-            <td><a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Nome) </a></td>
-            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.cpf)</a></td>
-            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.telefone)</a></td>
-            <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
-            <td><form asp-controller="Pessoas" asp-action="Apagar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
+            @Html.HiddenFor(modelItem => item.IdPessoa, new { idPessoa = "idPessoa"})
+            <td><a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Nome) </a></td>
+            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.CPF)</a></td>
+            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Telefone)</a></td>
+            <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
+            <td><form asp-controller="Pessoas" asp-action="Apagar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
          </tr>
       }
    </tbody>
