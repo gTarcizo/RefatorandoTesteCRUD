@@ -27,7 +27,7 @@
       {
          <tr>
             @Html.HiddenFor(modelItem => item.PessoaId, new { id = "IdPessoa"})
-            <td><a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.nome) </a></td>
+            <td><a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Nome) </a></td>
             <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.cpf)</a></td>
             <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.telefone)</a></td>
             <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-pessoaId="@item.PessoaId"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
