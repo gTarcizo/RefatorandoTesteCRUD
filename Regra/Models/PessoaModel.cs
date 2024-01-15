@@ -1,4 +1,5 @@
 ﻿using Regra.Entidades;
+using Regra.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Regra.Models
@@ -12,7 +13,7 @@ namespace Regra.Models
       }
       public int IdPessoa { get; set; }
 
-      [Required(ErrorMessage = "Preencha o campo Nome")]
+      [Required(ErrorMessage ="Preencha o campo Nome")]
       public string Nome { get; set; }
 
       [Required(ErrorMessage = "Preencha o campo CPF")]
@@ -38,16 +39,6 @@ namespace Regra.Models
          Nome = pessoa.Nome;
          CPF = pessoa.CPF;
          Telefone = pessoa.Telefone;
-      }
-      public Pessoa ModeloParaEntidade(PessoaModel pessoa)
-      {
-         return new Pessoa()
-         {
-            IdPessoa = pessoa.IdPessoa,
-            Nome = pessoa.Nome,
-            CPF = pessoa.CPF,
-            Telefone = pessoa.Telefone
-         };
       }
    }
 }

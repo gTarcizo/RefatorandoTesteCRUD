@@ -10,19 +10,23 @@ using System.Collections.Generic;
 
 namespace TesteCRUD.Controllers
 {
-   public class HomeController : Controller
-   {
+    public class HomeController : Controller
+    {
       private RegraPessoa _regraPessoa;
-      public HomeController(RegraPessoa regraPessoa)
-      {
-         _regraPessoa = regraPessoa;
-      }
+      private RegraEndereco _regraEndereco;
+      private readonly string _connection;
+      public HomeController(IConfiguration configuration, RegraEndereco regraEndereco, RegraPessoa regraPessoa)
+        {
+            _connection = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+            _regraPessoa = regraPessoa;
+            _regraEndereco = regraEndereco;
+        }
 
       [HttpGet]
       public async Task<IActionResult> Index()
       {
-         var listaPessoas = await _regraPessoa.CarregarListaDePessoas();
-         return View(listaPessoas);
+            var listaPessoas = await _regraPessoa.CarregarListaDePessoas();
+            return View(listaPessoas);
       }
    }
 }

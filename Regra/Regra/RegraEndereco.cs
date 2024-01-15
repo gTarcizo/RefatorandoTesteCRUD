@@ -18,7 +18,7 @@ namespace Regra.Regra
 
       public RegraEndereco(IConfiguration configuration, IEnderecoRepositorio enderecoRepositorio)
       {
-         _connection = configuration.GetConnectionString("DefaultConnection");
+         _connection = configuration.GetConnectionString("DefaultConnection")??string.Empty;
          _enderecoRepositorio = enderecoRepositorio;
       }
 

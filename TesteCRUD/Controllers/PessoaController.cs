@@ -9,11 +9,13 @@ namespace TesteCRUD.Controllers
 {
    public class PessoasController : Controller
    {
+      private readonly string _connection;
       private RegraPessoa _regraPessoa;
       private RegraEndereco _regraEndereco;
 
-      public PessoasController(RegraPessoa regraPessoa, RegraEndereco regraEndereco)
+      public PessoasController(IConfiguration configuration, RegraPessoa regraPessoa, RegraEndereco regraEndereco)
       {
+         _connection = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
          _regraPessoa = regraPessoa;
          _regraEndereco = regraEndereco;
       }
