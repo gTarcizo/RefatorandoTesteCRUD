@@ -13,7 +13,7 @@ namespace Repositorios
       private readonly string _connection;
       public EnderecoRepositorio(IConfiguration configuration)
       {
-         _connection = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+         _connection = configuration.GetConnectionString("DefaultConnection");
       }
       public async Task<List<Endereco>> BuscarEnderecoPessoaPorId(int idPessoa)
       {
