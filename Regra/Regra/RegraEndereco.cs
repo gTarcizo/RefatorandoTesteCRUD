@@ -18,7 +18,7 @@ namespace Regra.Regra
 
       public RegraEndereco(IConfiguration configuration, IEnderecoRepositorio enderecoRepositorio)
       {
-         _connection = configuration.GetConnectionString("DefaultConnection")??string.Empty;
+         _connection = configuration.GetConnectionString("DefaultConnection");
          _enderecoRepositorio = enderecoRepositorio;
       }
 
@@ -35,7 +35,7 @@ namespace Regra.Regra
          catch (Exception) { throw; }
       }
 
-      public async Task<EnderecoModel?> CarregarEditarEndereco (int idEndereco)
+      public async Task<EnderecoModel?> CarregarEditarEndereco(int idEndereco)
       {
          EnderecoModel enderecos = new EnderecoModel();
          if (idEndereco != 0 && idEndereco > 0)
@@ -47,7 +47,7 @@ namespace Regra.Regra
                if (endereco != null) enderecos = endereco;
             }
          }
-            return enderecos;
+         return enderecos;
       }
 
       public async Task<int> EditarEndereco(EnderecoModel enderecoModel)

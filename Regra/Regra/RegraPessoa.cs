@@ -20,7 +20,7 @@ namespace Regra.Regra
       private readonly IPessoaRepositorio _pessoaRepositorio;
       public RegraPessoa(IConfiguration configuration, IPessoaRepositorio pessoaRepositorio, RegraEndereco regraEndereco)
       {
-         _connection = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+         _connection = configuration.GetConnectionString("DefaultConnection");
          _pessoaRepositorio = pessoaRepositorio;
          _regraEndereco = regraEndereco;
       }
@@ -46,11 +46,7 @@ namespace Regra.Regra
 
       public async Task<int> CriarPessoa(PessoaModel pessoaModel)
       {
-         using (SqlConnection con = new SqlConnection(_connection))
-         {
-            string query = "INSERT INTO Pessoa (Nome, CPF, Telefone) VALUES( @Nome, @CPF, @Telefone); SELECT CAST(scope_identity() AS INT);";
-            return await con.QueryFirstAsync<int>(query, pessoaModel);
-         }
+         return await _pessoaRepositorio.CriarPessoa(pessoaModel.ModeloParaEntidade(pessoaModel));
       }
 
       public async Task<PessoaModel> CarregarEditar(int idPessoa)
@@ -64,7 +60,7 @@ namespace Regra.Regra
                {
 
                   string queryPessoa = "SELECT * FROM Pessoa WHERE IdPessoa = @idPessoa";
-                  pessoas = await con.QueryFirstOrDefaultAsync<PessoaModel>(queryPessoa, new { idPessoa }) ?? new PessoaModel();
+                  pessoas = await con.QueryFirstOrDefaultAsync<PessoaModel>(queryPessoa, new { idPessoa });
 
                   IList<EnderecoModel> listaEnderecos;
                   string queryEndereco = "SELECT * FROM Endereco WHERE IdPessoa = @idPessoa";
@@ -104,8 +100,8 @@ namespace Regra.Regra
          {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT e.IdEndereco, p.* FROM Pessoa p ");
-            sb.Append("INNER JOIN Endereco e ON p.IdPessoa = e.IdPessoa "); 
-            sb.Append("WHERE e.IdEndereco = @idEndereco "); 
+            sb.Append("INNER JOIN Endereco e ON p.IdPessoa = e.IdPessoa ");
+            sb.Append("WHERE e.IdEndereco = @idEndereco ");
             var pessoaModel = await con.QueryFirstOrDefaultAsync<PessoaModel>(sb.ToString(), new { idEndereco });
             if (pessoaModel == null) return new PessoaModel();
             return pessoaModel;

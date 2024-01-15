@@ -11,5 +11,6 @@ namespace Regra.Interfaces
    public interface IPessoaRepositorio
    {
       Task<IEnumerable<Pessoa>> ListarPessoas();
+      Task<int> CriarPessoa(Pessoa pessoa);
    }
 }
