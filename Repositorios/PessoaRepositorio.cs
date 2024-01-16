@@ -46,5 +46,38 @@ namespace Repositorios
             return new Pessoa();
          }
       }
+
+      public async Task<int> AtualizarPessoa(Pessoa pessoa)
+      {
+         using (SqlConnection con = new SqlConnection(_connection))
+         {
+            string atualizarQuery = "UPDATE Pessoa SET Nome = @Nome, CPF = @CPF, Telefone = @Telefone WHERE IdPessoa = @IdPessoa";
+            return await con.ExecuteAsync(atualizarQuery, pessoa);
+         }
+      }
+
+      public async Task<int> ApagarPessoa(int idPessoa)
+      {
+         using (SqlConnection con = new SqlConnection(_connection))
+         {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("DELETE FROM Pessoa WHERE IdPessoa = @idPessoa ");
+            return await con.ExecuteAsync(sb.ToString(), new { idPessoa });
+         }
+      }
+      
+      public async Task<Pessoa> BuscarPessoaPorIdEndereco(int idEndereco)
+      {
+         using (SqlConnection con = new SqlConnection(_connection))
+         {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT e.IdEndereco, p.* FROM Pessoa p ");
+            sb.Append("INNER JOIN Endereco e ON p.IdPessoa = e.IdPessoa ");
+            sb.Append("WHERE e.IdEndereco = @idEndereco ");
+            var pessoa = await con.QueryFirstOrDefaultAsync<Pessoa>(sb.ToString(), new { idEndereco });
+            if (pessoa == null) return new Pessoa();
+            return pessoa;
+         }
+      }
    }
 }

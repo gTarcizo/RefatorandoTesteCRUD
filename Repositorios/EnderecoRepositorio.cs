@@ -25,5 +25,14 @@ namespace Repositorios
             return listaEndereco.ToList();
          }
       }
+      public async Task<int> ApagarTodosEnderecos(int idPessoa)
+      {
+         using (SqlConnection con = new SqlConnection(_connection))
+         {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("DELETE FROM Endereco WHERE IdPessoa = @idPessoa ");
+            return await con.ExecuteAsync(sb.ToString(), new { idPessoa });
+         }
+      }
    }
 }

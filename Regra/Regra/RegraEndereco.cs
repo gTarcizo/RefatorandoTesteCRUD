@@ -81,5 +81,10 @@ namespace Regra.Regra
          }
          return listaEnderecoModel;
       }
+
+      public async Task<int> ApagarTodosEnderecos(int idPessoa)
+      {
+         return await _enderecoRepositorio.ApagarTodosEnderecos(idPessoa);
+      }
    }
 }

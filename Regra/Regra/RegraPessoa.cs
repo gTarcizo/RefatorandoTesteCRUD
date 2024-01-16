@@ -15,12 +15,10 @@ namespace Regra.Regra
 {
    public class RegraPessoa
    {
-      private readonly string _connection;
       private readonly RegraEndereco _regraEndereco;
       private readonly IPessoaRepositorio _pessoaRepositorio;
-      public RegraPessoa(IConfiguration configuration, IPessoaRepositorio pessoaRepositorio, RegraEndereco regraEndereco)
+      public RegraPessoa(IPessoaRepositorio pessoaRepositorio, RegraEndereco regraEndereco)
       {
-         _connection = configuration.GetConnectionString("DefaultConnection");
          _pessoaRepositorio = pessoaRepositorio;
          _regraEndereco = regraEndereco;
       }
@@ -67,36 +65,21 @@ namespace Regra.Regra
 
       public async Task<int> EditarPessoa(PessoaModel pessoaModel)
       {
-         using (SqlConnection con = new SqlConnection(_connection))
-         {
-            string atualizarQuery = "UPDATE Pessoa SET Nome = @Nome, CPF = @CPF, Telefone = @Telefone WHERE IdPessoa = @IdPessoa";
-            return await con.ExecuteAsync(atualizarQuery, pessoaModel);
-         }
+         return  await _pessoaRepositorio.AtualizarPessoa(pessoaModel.ModeloParaEntidade(pessoaModel));
       }
 
       public async Task<int> ApagarPessoa(int idPessoa)
       {
-         using (SqlConnection con = new SqlConnection(_connection))
-         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("DELETE FROM Endereco WHERE IdPessoa = @idPessoa ");
-            sb.Append("DELETE FROM Pessoa WHERE IdPessoa = @idPessoa ");
-            return await con.ExecuteAsync(sb.ToString(), new { idPessoa });
-         }
+         await _regraEndereco.ApagarTodosEnderecos(idPessoa);
+          return await _pessoaRepositorio.ApagarPessoa(idPessoa);
       }
 
       public async Task<PessoaModel> BuscarPessoaPorEndereco(int idEndereco)
       {
-         using (SqlConnection con = new SqlConnection(_connection))
-         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT e.IdEndereco, p.* FROM Pessoa p ");
-            sb.Append("INNER JOIN Endereco e ON p.IdPessoa = e.IdPessoa ");
-            sb.Append("WHERE e.IdEndereco = @idEndereco ");
-            var pessoaModel = await con.QueryFirstOrDefaultAsync<PessoaModel>(sb.ToString(), new { idEndereco });
-            if (pessoaModel == null) return new PessoaModel();
-            return pessoaModel;
-         }
+         var pessoa = await _pessoaRepositorio.BuscarPessoaPorIdEndereco(idEndereco);
+         PessoaModel pessoaModel = new PessoaModel();
+         pessoaModel.EntidadeParaModel(pessoa);
+         return pessoaModel;
       }
 
    }

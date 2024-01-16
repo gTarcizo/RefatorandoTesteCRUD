@@ -13,5 +13,9 @@ namespace Regra.Interfaces
       Task<IEnumerable<Pessoa>> ListarPessoas();
       Task<int> CriarPessoa(Pessoa pessoa);
       Task<Pessoa> BuscarPessoaPorId(int idPessoa);
+      Task<int> AtualizarPessoa(Pessoa pessoa);
+      Task<int> ApagarPessoa(int idPessoa);
+      Task<Pessoa> BuscarPessoaPorIdEndereco(int idEndereco);
+
    }
 }

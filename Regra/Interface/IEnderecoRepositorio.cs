@@ -11,5 +11,7 @@ namespace Regra.Interfaces
    public interface IEnderecoRepositorio
    {
       Task<List<Endereco>> BuscarEnderecoPessoaPorId(int idPessoa);
+      Task<int> ApagarTodosEnderecos(int idPessoa);
+
    }
 }
