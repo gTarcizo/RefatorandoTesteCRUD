@@ -13,12 +13,10 @@ namespace Regra.Regra
 {
    public class RegraEndereco
    {
-      private readonly string _connection;
       private readonly IEnderecoRepositorio _enderecoRepositorio;
 
-      public RegraEndereco(IConfiguration configuration, IEnderecoRepositorio enderecoRepositorio)
+      public RegraEndereco(IEnderecoRepositorio enderecoRepositorio)
       {
-         _connection = configuration.GetConnectionString("DefaultConnection");
          _enderecoRepositorio = enderecoRepositorio;
       }
 
@@ -26,46 +24,30 @@ namespace Regra.Regra
       {
          try
          {
-            using (SqlConnection con = new SqlConnection(_connection))
-            {
-               const string query = "INSERT INTO Endereco (NomeEndereco, CEP, Estado, Cidade, NumeroCasa, IdPessoa) VALUES ( @NomeEndereco, @CEP, @Estado, @Cidade, @NumeroCasa, @IdPessoa)";
-               await con.ExecuteAsync(query, enderecoModel);
-            }
+            await _enderecoRepositorio.CriarEndereco(enderecoModel.ModeloParaEntidade(enderecoModel));
          }
          catch (Exception) { throw; }
       }
 
       public async Task<EnderecoModel?> CarregarEditarEndereco(int idEndereco)
       {
-         EnderecoModel enderecos = new EnderecoModel();
-         if (idEndereco != 0 && idEndereco > 0)
+         EnderecoModel enderecoModel = new EnderecoModel();
+         if (idEndereco > 0)
          {
-            string queryEndereco = "SELECT * FROM Endereco WHERE IdEndereco = @idEndereco";
-            using (SqlConnection con = new SqlConnection(_connection))
-            {
-               var endereco = await con.QueryFirstOrDefaultAsync<EnderecoModel>(queryEndereco, new { idEndereco });
-               if (endereco != null) enderecos = endereco;
-            }
+            var endereco = await _enderecoRepositorio.BuscarEnderecoPorId(idEndereco);
+            enderecoModel.EntidadeParaModel(endereco);
          }
-         return enderecos;
+         return enderecoModel;
       }
 
       public async Task<int> EditarEndereco(EnderecoModel enderecoModel)
       {
-         using (SqlConnection con = new SqlConnection(_connection))
-         {
-            string atualizarQuery = "UPDATE Endereco SET NomeEndereco = @NomeEndereco, CEP = @CEP, Estado = @Estado, Cidade = @Cidade, NumeroCasa = @NumeroCasa WHERE IdEndereco = @IdEndereco";
-            return await con.ExecuteAsync(atualizarQuery, enderecoModel);
-         }
+         return await _enderecoRepositorio.AtualizarEndereco(enderecoModel.ModeloParaEntidade(enderecoModel));
       }
 
       public async Task<int> ApagarEndereco(int idEndereco)
       {
-         using (SqlConnection con = new SqlConnection(_connection))
-         {
-            string query = "DELETE FROM Endereco WHERE IdEndereco = @idEndereco ";
-            return await con.ExecuteAsync(query, new { idEndereco });
-         }
+         return await _enderecoRepositorio.ApagarEnderecoPorId(idEndereco);
       }
 
       public async Task<List<EnderecoModel>> BuscarEnderecoPessoaPorId(int idPessoa)

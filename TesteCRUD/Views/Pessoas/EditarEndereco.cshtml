@@ -13,7 +13,7 @@
          <input type="hidden" asp-for="IdEndereco" class="form-control" />
          <div class="form-group">
             <label asp-for="CEP" class="control-label">CEP</label>
-            <input asp-for="CEP" class="form-control" id="endereco_cep" />
+            <input asp-for="CEP" type="text" id="CEP" maxlength="14" class="form-control" />
             <span asp-validation-for="CEP" class="text-danger"></span>
          </div>
          <div class="form-group">

@@ -24,15 +24,28 @@ namespace Regra.Models
       public string NumeroCasa { get; set; }
       public int IdPessoa { get; set; }
 
-      public void EntidadeParaModel(Endereco enderecos)
+      public void EntidadeParaModel(Endereco endereco)
       {
-         IdEndereco = enderecos.IdEndereco;
-         NomeEndereco = enderecos.NomeEndereco;
-         CEP = enderecos.CEP;
-         Estado = enderecos.Estado;
-         Cidade = enderecos.Cidade;
-         NumeroCasa = enderecos.NumeroCasa;
-         IdPessoa = enderecos.IdPessoa;
+         IdEndereco = endereco.IdEndereco;
+         NomeEndereco = endereco.NomeEndereco;
+         CEP = endereco.CEP;
+         Estado = endereco.Estado;
+         Cidade = endereco.Cidade;
+         NumeroCasa = endereco.NumeroCasa;
+         IdPessoa = endereco.IdPessoa;
+      }
+      public Endereco ModeloParaEntidade(EnderecoModel endereco)
+      {
+         return new Endereco()
+         {
+            IdEndereco = endereco.IdEndereco,
+            NomeEndereco = endereco.NomeEndereco,
+            CEP = endereco.CEP,
+            Estado = endereco.Estado,
+            Cidade = endereco.Cidade,
+            NumeroCasa = endereco.NumeroCasa,
+            IdPessoa = endereco.IdPessoa,
+         };
       }
    }
 }

@@ -12,6 +12,10 @@ namespace Regra.Interfaces
    {
       Task<List<Endereco>> BuscarEnderecoPessoaPorId(int idPessoa);
       Task<int> ApagarTodosEnderecos(int idPessoa);
+      Task<int> CriarEndereco(Endereco endereco);
+      Task<Endereco> BuscarEnderecoPorId(int idEndereco);
+      Task<int> AtualizarEndereco(Endereco endereco);
+      Task<int> ApagarEnderecoPorId(int idEndereco);
 
    }
 }
