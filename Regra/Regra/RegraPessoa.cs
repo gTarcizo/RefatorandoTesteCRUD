@@ -53,23 +53,14 @@ namespace Regra.Regra
       {
          try
          {
-            PessoaModel pessoas = new PessoaModel();
+            PessoaModel pessoaModel = new PessoaModel();
             if (idPessoa > 0)
             {
-               using (SqlConnection con = new SqlConnection(_connection))
-               {
-
-                  string queryPessoa = "SELECT * FROM Pessoa WHERE IdPessoa = @idPessoa";
-                  pessoas = await con.QueryFirstOrDefaultAsync<PessoaModel>(queryPessoa, new { idPessoa });
-
-                  IList<EnderecoModel> listaEnderecos;
-                  string queryEndereco = "SELECT * FROM Endereco WHERE IdPessoa = @idPessoa";
-                  var enderecos = await con.QueryAsync<EnderecoModel>(queryEndereco, new { idPessoa });
-                  listaEnderecos = enderecos.ToList();
-                  if (listaEnderecos.Count > 0) pessoas.ListaEndereco = listaEnderecos.ToList();
-               }
+               var pessoa = await _pessoaRepositorio.BuscarPessoaPorId(idPessoa);
+               pessoaModel.EntidadeParaModel(pessoa);
+               pessoaModel.ListaEndereco = await _regraEndereco.BuscarEnderecoPessoaPorId(idPessoa);
             }
-            return pessoas;
+            return pessoaModel;
          }
          catch (Exception) { throw; }
       }

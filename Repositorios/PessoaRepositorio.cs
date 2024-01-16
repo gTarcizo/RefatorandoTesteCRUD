@@ -1,11 +1,10 @@
 ﻿using Regra.Entidades;
-using Regra.Models;
 using Regra.Interfaces;
 using Dapper;
-using System.Data.Common;
 using System.Data.SqlClient;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Regra.Models;
 namespace Repositorios
 {
    public class PessoaRepositorio : IPessoaRepositorio
@@ -31,6 +30,20 @@ namespace Repositorios
          {
             string query = "INSERT INTO Pessoa (Nome, CPF, Telefone) VALUES( @Nome, @CPF, @Telefone); SELECT CAST(scope_identity() AS INT);";
             return await con.QueryFirstAsync<int>(query, pessoa);
+         }
+      }
+
+      public async Task<Pessoa> BuscarPessoaPorId(int idPessoa)
+      {
+         using (SqlConnection co = new SqlConnection(_connection))
+         {
+            string queryPessoa = "SELECT * FROM Pessoa WHERE IdPessoa = @idPessoa";
+            var pessoa = await co.QueryFirstOrDefaultAsync<Pessoa>(queryPessoa, new { idPessoa });
+            if (pessoa != null)
+            {
+               return pessoa;
+            }
+            return new Pessoa();
          }
       }
    }
