@@ -1,5 +1,6 @@
 ﻿const campoCep = document.getElementById("CEP");
 const campoCPF = document.getElementById("CPF");
+const campoTelefone = document.getElementById("Telefone");
 
 
 if (campoCep != null) {
@@ -27,6 +28,22 @@ if (campoCPF != null) {
    campoCPF.addEventListener("change", (event) => {
       onchange = (event) => {
          TestaCPF();
+      }
+   })
+}
+
+
+if (campoTelefone != null) {
+   campoTelefone.addEventListener("keypress", (event) => {
+
+      let tamanhoCampoTelefone = campoTelefone.value.length;
+      if (tamanhoCampoTelefone === 0) campoTelefone.value = '(' + campoTelefone.value;
+      if (tamanhoCampoTelefone === 3) campoTelefone.value += ')';
+      if (campoTelefone.value[4].includes('9')) {
+         if (tamanhoCampoTelefone === 9) campoTelefone.value += '-';
+      } else {
+         if (tamanhoCampoTelefone === 8) campoTelefone.value += '-';
+         if (tamanhoCampoTelefone === 14) campoTelefone.value[15] = '';
       }
    })
 }

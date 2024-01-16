@@ -1,6 +1,5 @@
 
 using Regra.Regra;
-using Regra.Interfaces;
 using ScopedInjection;
 
 var builder = WebApplication.CreateBuilder(args);
