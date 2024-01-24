@@ -28,7 +28,7 @@ namespace Repositorios
       {
          using (SqlConnection con = new SqlConnection(_connection))
          {
-            string query = "INSERT INTO Pessoa (Nome, CPF, Telefone) VALUES( @Nome, @CPF, @Telefone); SELECT CAST(scope_identity() AS INT);";
+            string query = "INSERT INTO Pessoa (Nome, CPF, Telefone, Email) VALUES( @Nome, @CPF, @Telefone, @Email); SELECT CAST(scope_identity() AS INT);";
             return await con.QueryFirstAsync<int>(query, pessoa);
          }
       }
@@ -51,7 +51,7 @@ namespace Repositorios
       {
          using (SqlConnection con = new SqlConnection(_connection))
          {
-            string atualizarQuery = "UPDATE Pessoa SET Nome = @Nome, CPF = @CPF, Telefone = @Telefone WHERE IdPessoa = @IdPessoa";
+            string atualizarQuery = "UPDATE Pessoa SET Nome = @Nome, CPF = @CPF, Telefone = @Telefone, Email = @Email WHERE IdPessoa = @IdPessoa";
             return await con.ExecuteAsync(atualizarQuery, pessoa);
          }
       }

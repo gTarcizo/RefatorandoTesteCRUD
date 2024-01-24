@@ -27,20 +27,20 @@ namespace TesteCRUD.Controllers
       [HttpPost]
       public async Task<IActionResult> Create(PessoaModel pessoa)
       {
-         if (!ModelState.IsValid) return View();
+         if (string.IsNullOrEmpty(pessoa.Nome)) return View();
          return Redirect($"Editar?idPessoa={await _regraPessoa.CriarPessoa(pessoa)}");
       }
 
       [HttpPost]
-      public async Task<IActionResult> CreateEndereco(EnderecoModel enderecoModel)
+      public async Task<IActionResult> CreateEndereco(EnderecoModel endereco)
       {
-         if (!ModelState.IsValid) return RedirectToAction("Editar", "Pessoas", new { enderecoModel.IdPessoa });
+         if (!ModelState.IsValid) return RedirectToAction("Editar", "Pessoas", new { endereco.IdPessoa });
          try
          {
-            await _regraEndereco.CreateEndereco(enderecoModel);
+            await _regraEndereco.CreateEndereco(endereco);
          }
          catch (Exception) { throw; }
-         return RedirectToAction("Editar", "Pessoas", new { enderecoModel.IdPessoa });
+         return RedirectToAction("Editar", "Pessoas", new { endereco.IdPessoa });
       }
 
       [HttpGet]
@@ -59,7 +59,6 @@ namespace TesteCRUD.Controllers
       public async Task<IActionResult> Editar(PessoaModel pessoaModel)
       {
          if (pessoaModel.IdPessoa == 0) return NotFound();
-         if (!ModelState.IsValid) return View();
          await _regraPessoa.EditarPessoa(pessoaModel);
          return Redirect("/");
       }

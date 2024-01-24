@@ -64,16 +64,16 @@ const PreencheEndereco = async () => {
 
 const PreencherCamposEndereco = dado => {
    if (!campoCep.value.includes("-")) campoCep.value = `${campoCep.value.slice(0, 5)}-${campoCep.value.slice(5)}`
-   document.getElementById('enderecoModel_NomeEndereco').value = `${dado.logradouro} - ${dado.bairro}`;
-   document.getElementById('enderecoModel_Cidade').value = (dado.localidade);
-   document.getElementById('enderecoModel_Estado').value = (dado.uf);
+   document.getElementById('NomeEndereco').value = `${dado.logradouro} - ${dado.bairro}`;
+   document.getElementById('Cidade').value = (dado.localidade);
+   document.getElementById('Estado').value = (dado.uf);
 }
 
 const LimpaCamposCEP = () => {
    window.alert('CEP Inválido!');
-   document.getElementById('enderecoModel_NomeEndereco').value = '';
-   document.getElementById('enderecoModel_Cidade').value = '';
-   document.getElementById('enderecoModel_Estado').value = '';
+   document.getElementById('NomeEndereco').value = '';
+   document.getElementById('Cidade').value = '';
+   document.getElementById('Estado').value = '';
 }
 
 const LimpaCamposCPF = () => {

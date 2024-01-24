@@ -18,7 +18,9 @@
          <th scope="col">Nome</th>
          <th scope="col">CPF</th>
          <th scope="col">Telefone</th>
+         <th scope="col">Email</th>
          <th scope="col" class="text-center">Qtd. Endereço</th>
+         <th scope="col" class="text-center">Qtd. Divida</th>
          <th scope="col">Apagar</th>
       </tr>
    </thead>
@@ -30,6 +32,8 @@
             <td><a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Nome) </a></td>
             <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.CPF)</a></td>
             <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Telefone)</a></td>
+            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Email)</a></td>
+            <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
             <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
             <td><form asp-controller="Pessoas" asp-action="Apagar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
          </tr>

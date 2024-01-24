@@ -14,17 +14,12 @@ namespace Regra.Models
 
       [Required(ErrorMessage = "Preencha o campo Nome")]
       public string Nome { get; set; }
-
-      [Required(ErrorMessage = "Preencha o campo CPF")]
       public string CPF { get; set; }
-
-      [Required(ErrorMessage = "Preencha o campo Telefone")]
       public string Telefone { get; set; }
-
-      public List<EnderecoModel> ListaEndereco { get; set; }
-
+      public string Email { get; set; }
       public List<PessoaModel> ListaPessoa { get; set; }
-
+      public EnderecoModel? Endereco { get; set; }
+      public List<EnderecoModel> ListaEndereco { get; set; }
       public int QuantidadeEndereco
       {
          get
@@ -38,6 +33,7 @@ namespace Regra.Models
          Nome = pessoa.Nome;
          CPF = pessoa.CPF;
          Telefone = pessoa.Telefone;
+         Email = pessoa.Email;
       }
       public Pessoa ModeloParaEntidade(PessoaModel pessoa)
       {
@@ -46,7 +42,8 @@ namespace Regra.Models
             IdPessoa = pessoa.IdPessoa,
             Nome = pessoa.Nome,
             CPF = pessoa.CPF,
-            Telefone = pessoa.Telefone
+            Telefone = pessoa.Telefone,
+            Email = pessoa.Email
          };
       }
    }

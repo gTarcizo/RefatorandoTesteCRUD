@@ -18,12 +18,14 @@
          <div class="form-group">
             <label asp-for="CPF" class="control-label">CPF</label>
             <input asp-for="CPF" id="CPF" type="text" maxlength="14" class="form-control" />
-            <span asp-validation-for="CPF" class="text-danger"></span>
          </div>
          <div class="form-group">
             <label asp-for="Telefone" class="control-label">Telefone</label>
             <input type="text" asp-for="Telefone" maxlength="14" id="Telefone" class="form-control" />
-            <span asp-validation-for="Telefone" class="text-danger"></span>
+         </div>
+         <div class="form-group">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input type="email" asp-for="Email" id="Email" class="form-control" />
          </div>
          <div class="form-group m-3">
             <input type="submit" value="Adicionar" class="btn btn-success btn-sm" />

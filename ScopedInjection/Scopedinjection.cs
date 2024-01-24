@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Regra.Interfaces;
+using Regra.Regra;
 using Repositorios;
 
 namespace ScopedInjection
@@ -8,8 +9,15 @@ namespace ScopedInjection
    {
       public static void ConfigurarScoped(IServiceCollection services)
       {
-            services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
-            services.AddScoped<IEnderecoRepositorio, EnderecoRepositorio>();
+         #region Repositorios
+
+         services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
+         services.AddScoped<IEnderecoRepositorio, EnderecoRepositorio>();
+         #endregion
+         #region Regras
+         services.AddScoped<RegraPessoa>();
+         services.AddScoped<RegraEndereco>();
+         #endregion
       }
    }
 }
