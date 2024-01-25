@@ -13,10 +13,12 @@ namespace ScopedInjection
 
          services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
          services.AddScoped<IEnderecoRepositorio, EnderecoRepositorio>();
+         services.AddScoped<IDividaRepositorio, DividaRepositorio>();
          #endregion
          #region Regras
          services.AddScoped<RegraPessoa>();
          services.AddScoped<RegraEndereco>();
+         services.AddScoped<RegraDivida>();
          #endregion
       }
    }

@@ -9,6 +9,7 @@ namespace Regra.Models
       {
          ListaEndereco = new List<EnderecoModel>();
          ListaPessoa = new List<PessoaModel>();
+         ListaDivida = new List<DividaModel>();
       }
       public int IdPessoa { get; set; }
 
@@ -25,6 +26,17 @@ namespace Regra.Models
          get
          {
             return ListaEndereco.Count;
+         }
+      }
+      public DividaModel Divida { get; set; }
+
+      public List<DividaModel> ListaDivida { get; set; }
+
+      public int QuantidadeDivida
+      {
+         get
+         {
+            return ListaDivida.Count;
          }
       }
       public void EntidadeParaModel(Pessoa pessoa)

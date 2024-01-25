@@ -7,12 +7,12 @@ using Regra.Entidades;
 
 namespace TesteCRUD.Controllers
 {
-   public class PessoasController : Controller
+   public class PessoaController : Controller
    {
       private RegraPessoa _regraPessoa;
       private RegraEndereco _regraEndereco;
 
-      public PessoasController(RegraPessoa regraPessoa, RegraEndereco regraEndereco)
+      public PessoaController(RegraPessoa regraPessoa, RegraEndereco regraEndereco)
       {
          _regraPessoa = regraPessoa;
          _regraEndereco = regraEndereco;
@@ -34,13 +34,13 @@ namespace TesteCRUD.Controllers
       [HttpPost]
       public async Task<IActionResult> CreateEndereco(EnderecoModel endereco)
       {
-         if (!ModelState.IsValid) return RedirectToAction("Editar", "Pessoas", new { endereco.IdPessoa });
+         if (!ModelState.IsValid) return RedirectToAction("Editar", "Pessoa", new { endereco.IdPessoa });
          try
          {
             await _regraEndereco.CreateEndereco(endereco);
          }
          catch (Exception) { throw; }
-         return RedirectToAction("Editar", "Pessoas", new { endereco.IdPessoa });
+         return RedirectToAction("Editar", "Pessoa", new { endereco.IdPessoa });
       }
 
       [HttpGet]
@@ -49,7 +49,6 @@ namespace TesteCRUD.Controllers
          try
          {
             var pessoaModel = await _regraPessoa.CarregarEditar(idPessoa);
-            ViewData["EnderecoModel"] = pessoaModel.ListaEndereco;
             return View(pessoaModel);
          }
          catch (Exception) { throw; }
@@ -85,7 +84,7 @@ namespace TesteCRUD.Controllers
          {
             await _regraEndereco.EditarEndereco(enderecoModel);
             var pessoaModel = await _regraPessoa.BuscarPessoaPorEndereco(enderecoModel.IdEndereco);
-            return RedirectToAction("Editar", "Pessoas", new { pessoaModel.IdPessoa });
+            return RedirectToAction("Editar", "Pessoa", new { pessoaModel.IdPessoa });
          }
          return Redirect("/");
       }
@@ -111,11 +110,17 @@ namespace TesteCRUD.Controllers
             {
                PessoaModel pessoaModel = await _regraPessoa.BuscarPessoaPorEndereco(idEndereco);
                await _regraEndereco.ApagarEndereco(idEndereco);
-               return RedirectToAction("Editar", "Pessoas", new { pessoaModel.IdPessoa });
+               return RedirectToAction("Editar", "Pessoa", new { pessoaModel.IdPessoa });
             }
             catch (Exception) { throw; }
 
          }
+         return Redirect("/");
+      }
+
+      [HttpPost]
+      public async Task<IActionResult> CreateDivida(DividaModel divida)
+      {
          return Redirect("/");
       }
    }

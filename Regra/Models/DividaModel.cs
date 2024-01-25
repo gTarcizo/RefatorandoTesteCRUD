@@ -15,6 +15,8 @@ namespace Regra.Models
       public string DescricaoDivida { get; set; }
       public float ValorDivida { get; set; }
       public float? Juros { get; set; }
+      public float? ValorComJuros { get; set; }
+      public DateTime DataCriacao { get; set; }
 
       public void EntidadeParaModel(Divida endereco)
       {
@@ -23,6 +25,7 @@ namespace Regra.Models
          DescricaoDivida = endereco.DescricaoDivida;
          ValorDivida = endereco.ValorDivida;
          Juros = endereco.Juros;
+         DataCriacao = endereco.DataCriacao;
       }
       public Divida ModeloParaEntidade(Divida endereco)
       {
@@ -33,6 +36,7 @@ namespace Regra.Models
             DescricaoDivida = endereco.DescricaoDivida,
             ValorDivida = endereco.ValorDivida,
             Juros = endereco.Juros,
+            DataCriacao=endereco.DataCriacao
          };
       }
    }

@@ -16,11 +16,13 @@ namespace Regra.Regra
    public class RegraPessoa
    {
       private readonly RegraEndereco _regraEndereco;
+      private readonly RegraDivida _regraDivida;
       private readonly IPessoaRepositorio _pessoaRepositorio;
-      public RegraPessoa(IPessoaRepositorio pessoaRepositorio, RegraEndereco regraEndereco)
+      public RegraPessoa(IPessoaRepositorio pessoaRepositorio, RegraEndereco regraEndereco, RegraDivida regraDivida)
       {
          _pessoaRepositorio = pessoaRepositorio;
          _regraEndereco = regraEndereco;
+         _regraDivida = regraDivida;
       }
 
       public async Task<List<PessoaModel>> CarregarListaDePessoas()
@@ -57,6 +59,7 @@ namespace Regra.Regra
                var pessoa = await _pessoaRepositorio.BuscarPessoaPorId(idPessoa);
                pessoaModel.EntidadeParaModel(pessoa);
                pessoaModel.ListaEndereco = await _regraEndereco.BuscarEnderecoPessoaPorId(idPessoa);
+               pessoaModel.ListaDivida = await _regraDivida.BuscarDividaPorId(idPessoa);
             }
             return pessoaModel;
          }

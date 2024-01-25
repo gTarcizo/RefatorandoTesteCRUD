@@ -29,13 +29,13 @@
       {
          <tr>
             @Html.HiddenFor(modelItem => item.IdPessoa, new { idPessoa = "idPessoa"})
-            <td><a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Nome) </a></td>
-            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.CPF)</a></td>
-            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Telefone)</a></td>
-            <td> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Email)</a></td>
-            <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
-            <td class="text-center"> <a asp-controller="Pessoas" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
-            <td><form asp-controller="Pessoas" asp-action="Apagar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
+            <td><a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Nome) </a></td>
+            <td> <a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.CPF)</a></td>
+            <td> <a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Telefone)</a></td>
+            <td> <a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.Email)</a></td>
+            <td class="text-center"> <a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.QuantidadeEndereco)</a></td>
+            <td class="text-center"> <a asp-controller="Pessoa" asp-action="Editar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"> @Html.DisplayFor(modelItem => item.QuantidadeDivida)</a></td>
+            <td><form asp-controller="Pessoa" asp-action="Apagar" class="text-dark font-weight-light text-decoration-none" asp-route-idPessoa="@item.IdPessoa"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
          </tr>
       }
    </tbody>
