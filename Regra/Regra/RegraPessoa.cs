@@ -40,6 +40,7 @@ namespace Regra.Regra
          foreach (var pessoaModel in listaPessoaModel)
          {
             pessoaModel.ListaEndereco = await _regraEndereco.BuscarEnderecoPessoaPorId(pessoaModel.IdPessoa);
+            pessoaModel.ListaDivida = await _regraDivida.ListarDividaPorId(pessoaModel.IdPessoa);
          }
          return listaPessoaModel.ToList();
       }
@@ -59,7 +60,7 @@ namespace Regra.Regra
                var pessoa = await _pessoaRepositorio.BuscarPessoaPorId(idPessoa);
                pessoaModel.EntidadeParaModel(pessoa);
                pessoaModel.ListaEndereco = await _regraEndereco.BuscarEnderecoPessoaPorId(idPessoa);
-               pessoaModel.ListaDivida = await _regraDivida.BuscarDividaPorId(idPessoa);
+               pessoaModel.ListaDivida = await _regraDivida.ListarDividaPorId(idPessoa);
             }
             return pessoaModel;
          }

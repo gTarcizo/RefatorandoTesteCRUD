@@ -3,22 +3,12 @@
 @{
    ViewData["Title"] = "Editar";
 }
-<div class="d-flex justify-content-center">
-   <div class="d-flex justify-content-between w-25">
-      <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-         + Endereço
-      </button>
-      <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-         + Divida
-      </button>
-   </div>
-</div>
 
 <br />
 <h4 class="display-5 text-center">Atualizar @Model.Nome</h4>
 <hr />
 <div class="row d-flex justify-content-center">
-   <div class="col-md-4 ">
+   <div class="col-md-4 w-50">
       <form asp-action="Editar">
          <div asp-validation-summary="ModelOnly" class="text-danger"></div>
          <input asp-for="IdPessoa" type="hidden" />
@@ -42,22 +32,26 @@
             <input type="email" asp-for="Email" id="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
          </div>
-         <div class="form-group m-3">
-            <input type="submit" value="Atualizar" class="btn btn-success btn-sm" />
-            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">Voltar</a>
+         <div class="w-100 d-flex justify-content-center">
+            <div class="m-2">
+               <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">Voltar</a>
+               <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#ModalEndereco">+ Endereço</button>
+               <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#ModalDivida">+ Divida</button>
+               <input type="submit" value="Atualizar" class="btn btn-primary btn-sm" />
+            </div>
          </div>
       </form>
    </div>
 
-   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" id="ModalEndereco" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Novo Endereço</h5>
+               <h5 class="modal-title" id="ModalEndereco">Novo Endereço</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               <form asp-action="CreateEndereco">
+               <form asp-controller="Endereco" asp-action="CreateEndereco">
                   <div class="form-group">
                      <input asp-for="@Model.Endereco.IdPessoa" value="@Model.IdPessoa" type="hidden" />
                      <label asp-for="@Model.Endereco.CEP" class="control-label">CEP</label>
@@ -127,42 +121,13 @@
       </div>
    </div>
 
-   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Novo Endereço</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <form asp-action="CreateDivida">
-                  <div class="form-group">
-                     <input asp-for="@Model.Divida.IdPessoa" value="@Model.IdPessoa" type="hidden" />
-                     <label asp-for="@Model.Divida.DescricaoDivida" class="control-label">Descrição</label>
-                     <input asp-for="@Model.Divida.DescricaoDivida" type="text" id="DescricaoDivida" class="form-control" />
-                     <span asp-validation-for="@Model.Divida.DescricaoDivida" class="text-danger"></span>
-                  </div>
-                  <div class="row mt-1">
-                     <div class="form-group col-md-6">
-                        <label asp-for="@Model.Divida.Juros" class="control-label" tooltip="Teste">Juros por dia</label>
-                        <input asp-for="@Model.Divida.Juros" id="Juros" class="form-control" />
-                        <span asp-validation-for="@Model.Divida.Juros" class="text-danger"></span>
-                     </div>
-                     <div class="form-group mt-1 col-md-6">
-                        <label asp-for="@Model.Divida.ValorDivida" class="control-label">Valor</label>
-                        <input asp-for="@Model.Divida.ValorDivida" id="ValorDivida" class="form-control" />
-                        <span asp-validation-for="@Model.Divida.ValorDivida" class="text-danger"></span>
-                     </div>
-                  </div>
-                  <div class="form-group m-3">
-                     <input type="submit" class="btn btn-success btn-sm" />
-                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
-                  </div>
-               </form>
-            </div>
-         </div>
-      </div>
+   <div class="modal fade" id="ModalDivida" tabindex="-2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <partial name="~/Views/Shared/_ModalDivida.cshtml" for="@Model" />
    </div>
+   <br />
+   <small class="text-muted m-3 d-flex justify-content-center">~Clique em "+ Endereço" ou "+ Divida" para cadastrar um novo endereço ou uma nova divida para esse cadastro~</small>
+
+
    @if (Model.ListaEndereco.Any())
    {
       <small class="text-muted m-3 d-flex justify-content-center">~Clique sobre os valores da tabela para ir para tela de edição~</small>
@@ -184,23 +149,19 @@
             {
                <tbody>
                   <tr>
-                     <td><a asp-controller="Pessoa" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.CEP)</a></td>
-                     <td> <a asp-controller="Pessoa" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.NomeEndereco)</a></td>
-                     <td> <a asp-controller="Pessoa" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.NumeroCasa)</a></td>
-                     <td> <a asp-controller="Pessoa" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Cidade)</a></td>
-                     <td> <a asp-controller="Pessoa" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Estado)</a></td>
-                     <td><form asp-controller="Pessoa" asp-action="ApagarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
+                     <td><a asp-controller="Endereco" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.CEP)</a></td>
+                     <td> <a asp-controller="Endereco" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.NomeEndereco)</a></td>
+                     <td> <a asp-controller="Endereco" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.NumeroCasa)</a></td>
+                     <td> <a asp-controller="Endereco" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Cidade)</a></td>
+                     <td> <a asp-controller="Endereco" asp-action="EditarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Estado)</a></td>
+                     <td><form asp-controller="Endereco" asp-action="ApagarEndereco" asp-route-idEndereco="@item.IdEndereco" class="text-dark font-weight-light text-decoration-none"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
                   </tr>
                </tbody>
             }
          </table>
       </div>
    }
-   else
-   {
-      <small class="text-muted m-3 d-flex justify-content-center">~Clique em "+ Endereço" para cadastrar um novo endereço para esse cadastro~</small>
 
-   }
 
    @if (Model.ListaDivida.Any())
    {
@@ -222,11 +183,17 @@
                {
                   <tbody>
                      <tr>
-                        <td><a asp-controller="Pessoa" asp-action="EditarDivida" asp-route-idEndereco="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.DescricaoDivida)</a></td>
-                        <td> <a asp-controller="Pessoa" asp-action="EditarDivida" asp-route-idEndereco="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.ValorDivida)</a></td>
-                        <td> <a asp-controller="Pessoa" asp-action="EditarDivida" asp-route-idEndereco="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Juros)</a></td>
-                        <td> <a asp-controller="Pessoa" asp-action="EditarDivida" asp-route-idEndereco="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.ValorComJuros)</a></td>
-                        <td><form asp-controller="Pessoa" asp-action="ApagarDivida" asp-route-idEndereco="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
+                        <td><a asp-controller="Divida" asp-action="EditarDivida" asp-route-idDivida="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.DescricaoDivida)</a></td>
+                        <td> <a asp-controller="Divida" asp-action="EditarDivida" asp-route-idDivida="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.ValorDivida)</a></td>
+                        @if(item.TipoCalculo == Regra.Enum.TipoCalculoEnum.Porcentagem){
+                           <td> <a asp-controller="Divida" asp-action="EditarDivida" asp-route-idDivida="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Juros)%</a></td>
+                        }
+                        else
+                        {
+                           <td> <a asp-controller="Divida" asp-action="EditarDivida" asp-route-idDivida="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.Juros) (Fixo)</a></td>
+                        }
+                        <td> <a asp-controller="Divida" asp-action="EditarDivida" asp-route-idDivida="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"> @Html.DisplayFor(modelItem => item.ValorComJuros)</a></td>
+                        <td><form asp-controller="Divida" asp-action="ApagarDivida" asp-route-idDivida="@item.IdDivida" class="text-dark font-weight-light text-decoration-none"><button type="submit" class="border-0 btn btn-outline-danger">X</button></form></td>
                      </tr>
                   </tbody>
                }

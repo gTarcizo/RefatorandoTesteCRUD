@@ -1,0 +1,45 @@
+﻿@model Regra.Models.PessoaModel
+@using Regra.Enum;
+
+<div class="modal-dialog">
+   <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Novo Endereço</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form asp-controller="Divida" asp-action="CreateDivida">
+            <div class="row">
+               <div class="form-group mt-1 col-6">
+                  <input asp-for="@Model.Divida.IdPessoa" value="@Model.IdPessoa" type="hidden" />
+                  <label asp-for="@Model.Divida.DescricaoDivida" class="control-label">Descrição</label>
+                  <input asp-for="@Model.Divida.DescricaoDivida" type="text" id="DescricaoDivida" class="form-control" />
+               </div>
+               <div class="form-group mt-1 col-md-6">
+                  <label asp-for="@Model.Divida.ValorDivida" class="control-label">Valor</label>
+                  <input asp-for="@Model.Divida.ValorDivida" id="ValorDivida" class="form-control" />
+                  <span asp-validation-for="@Model.Divida.ValorDivida" class="text-danger"></span>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="form-group mt-1 col-md-6">
+                  <label asp-for="@Model.Divida.Juros" class="control-label">Juros por dia</label>
+                  <input asp-for="@Model.Divida.Juros" id="Juros" class="form-control" />
+               </div>
+               <div class="form-group mt-1 col-md-6">
+                  <label asp-for="@Model.Divida.TipoCalculo" class="control-label">Tipo de Calculo</label>
+                  <select asp-for="@Model.Divida.TipoCalculo" asp-items="Html.GetEnumSelectList<TipoCalculoEnum>()" id="TipoCalculo" class="form-control">
+                     <option selected="selected" value="">Selecione um tipo</option>
+                  </select>
+                  <span asp-validation-for="@Model.Divida.TipoCalculo" class="text-danger"></span>
+               </div>
+            </div>
+
+            <div class="form-group m-3">
+               <input type="submit" class="btn btn-success btn-sm" />
+               <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>

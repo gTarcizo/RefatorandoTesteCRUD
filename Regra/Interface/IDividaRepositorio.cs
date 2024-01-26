@@ -10,7 +10,9 @@ namespace Regra.Interfaces
 {
    public interface IDividaRepositorio
    {
-      Task<List<Divida>> BuscarDividaPorId(int idPessoa);
-
+      Task<IEnumerable<Divida>> CriarDivida(Divida divida);
+      Task<List<Divida>> ListarDividaPorId(int idPessoa);
+      Task<int> AtualizarDivida(Divida divida);
+      Task<Divida> BuscarDividaPorId(int idDivida);
    }
 }

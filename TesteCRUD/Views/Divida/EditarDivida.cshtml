@@ -1,0 +1,62 @@
+﻿@using Regra.Enum
+@model Regra.Models.DividaModel
+
+@{
+   ViewData["Title"] = "Editar Endereco";
+}
+
+<h4 class="display-5 text-center">Atualizar Endereco</h4>
+<hr />
+<div class="row d-flex justify-content-center">
+   <div class="col-md-4 ">
+      <form asp-controller="Divida" asp-action="CreateDivida">
+         <div class="row">
+            <div class="form-group mt-1">
+               <input asp-for="@Model.IdPessoa" value="@Model.IdPessoa" type="hidden" />
+               <label asp-for="@Model.DescricaoDivida" class="control-label">Descrição</label>
+               <input asp-for="@Model.DescricaoDivida" type="text" id="DescricaoDivida" class="form-control" />
+            </div>
+            <div class="form-group mt-1">
+               <label asp-for="@Model.ValorDivida" class="control-label">Valor</label>
+               <input asp-for="@Model.ValorDivida" id="ValorDivida" class="form-control" />
+               <span asp-validation-for="@Model.ValorDivida" class="text-danger"></span>
+            </div>
+         </div>
+         <div class="row mt-1">
+            <div class="form-group mt-1">
+               <label asp-for="@Model.Juros" class="control-label">Juros por dia</label>
+               <input asp-for="@Model.Juros" id="Juros" class="form-control" />
+            </div>
+            <div class="form-group mt-1">
+               <label asp-for="@Model.TipoCalculo" class="control-label">Tipo de Calculo</label>
+               <select asp-for="@Model.TipoCalculo" asp-items="Html.GetEnumSelectList<TipoCalculoEnum>()" id="TipoCalculo" class="form-control">
+                  <option selected="selected" value="">Selecione um tipo</option>
+               </select>
+               <span asp-validation-for="@Model.TipoCalculo" class="text-danger"></span>
+            </div>
+         </div>
+
+         <div class="form-group m-3">
+            <input type="submit" class="btn btn-success btn-sm" />
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">Voltar</a>
+         </div>
+      </form>
+   </div>
+</div>
+
+@section Scripts {
+   @{
+      await Html.RenderPartialAsync("_ValidationScriptsPartial");
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
